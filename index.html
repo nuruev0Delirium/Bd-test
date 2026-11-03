@@ -1032,6 +1032,75 @@
                     { type: 'single', text: "Как расшифровывается ORB (Object Request Broker)?",
                       options: ["Система управления базами данных.","Протокол передачи файлов.","Служба защиты информации.","Брокер запросов объектов."], correctIndex: 3 }
                 ]
+            },
+
+            lecture11: {
+                id: 'lecture11',
+                title: 'Тест по 11 лекции',
+                emoji: '📖',
+                description: 'Ограничения, связи и язык SQL',
+                questions: [
+                    { type: 'single', text: "Что такое ограничения (Constraints) в базах данных?",
+                      options: ["Команды для создания новых баз данных.","Правила обеспечения целостности и корректности данных.","Средства изменения внешнего вида таблиц.","Методы ускорения работы операционной системы."], correctIndex: 1 },
+                    { type: 'single', text: "Для чего используется ограничение NOT NULL?",
+                      options: ["Удаляет записи из таблицы автоматически.","Запрещает хранение пустых значений NULL.","Запрещает повторение значений в столбце.","Устанавливает значение по умолчанию."], correctIndex: 1 },
+                    { type: 'single', text: "Какую функцию выполняет ограничение UNIQUE?",
+                      options: ["Обеспечивает уникальность значений в столбце.","Проверяет правильность числовых значений.","Запрещает удаление записей из таблицы.","Создаёт связь между двумя таблицами."], correctIndex: 0 },
+                    { type: 'single', text: "Что представляет собой PRIMARY KEY?",
+                      options: ["Уникальный идентификатор каждой записи таблицы.","Ограничение для сортировки записей.","Поле для хранения текстовой информации.","Команда для удаления повторяющихся строк."], correctIndex: 0 },
+                    { type: 'single', text: "Какое ограничение обеспечивает ссылочную целостность?",
+                      options: ["CHECK.","NOT NULL.","FOREIGN KEY.","DEFAULT."], correctIndex: 2 },
+                    { type: 'single', text: "Для чего используется ограничение CHECK?",
+                      options: ["Для проверки значений по заданному условию.","Для объединения нескольких таблиц","Для изменения имени столбца.","Для создания новой таблицы."], correctIndex: 0 },
+                    { type: 'single', text: "Какую функцию выполняет ограничение DEFAULT?",
+                      options: ["Устанавливает значение по умолчанию.","Удаляет значения, которые повторяются.","Создаёт первичный ключ таблицы.","Запрещает изменение данных в таблице."], correctIndex: 0 },
+                    { type: 'single', text: "Какое ограничение сочетает в себе свойства NOT NULL и UNIQUE?",
+                      options: ["DEFAULT.","CHECK.","PRIMARY KEY.","FOREIGN KEY."], correctIndex: 2 },
+                    { type: 'single', text: "Что произойдёт при выполнении условия CHECK (age >= 18)?",
+                      options: ["В таблице автоматически изменится возраст.","В таблицу можно добавить любой возраст.","В таблицу можно добавить только возраст до 18.","В таблицу можно добавить возраст от 18 лет."], correctIndex: 3 },
+                    { type: 'single', text: "Что такое ссылочная целостность базы данных?",
+                      options: ["Правильная сортировка записей в таблицах.","Автоматическое удаление повторяющихся записей.","Корректность ссылок между связанными таблицами.","Совпадение количества строк во всех таблицах."], correctIndex: 2 },
+                    { type: 'single', text: "Какие основные типы связей используются в реляционных базах данных?",
+                      options: ["Один к одному, один ко многим, многие ко многим.","Внутренняя, внешняя и смешанная.","Главная, дополнительная и временная.","Простая, сложная и составная."], correctIndex: 0 },
+                    { type: 'single', text: "Что означает связь один к одному (1:1)?",
+                      options: ["Каждая запись связана с несколькими записями.","Несколько записей связаны с одной записью.","Каждой записи соответствует не более одной записи.","Одна запись связана со всеми записями таблицы."], correctIndex: 2 },
+                    { type: 'single', text: "Какой пример соответствует связи один ко многим (1:N)?",
+                      options: ["Один паспорт принадлежит нескольким гражданам.","Один преподаватель ведёт несколько курсов.","Один курс принадлежит только одному студенту.","Один студент имеет только один студенческий билет."], correctIndex: 1 },
+                    { type: 'single', text: "Что означает связь многие ко многим (M:N)?",
+                      options: ["Несколько записей одной таблицы связаны с несколькими записями другой.","Одна таблица содержит только один столбец.","Каждая запись существует независимо от остальных.","Одна запись связана только с одной записью."], correctIndex: 0 },
+                    { type: 'single', text: "Для чего создаётся промежуточная таблица при связи M:N?",
+                      options: ["Для автоматического изменения структуры базы.","Для удаления первичных ключей из таблиц.","Для хранения только текстовых значений.","Для организации связи между двумя таблицами."], correctIndex: 3 },
+                    { type: 'single', text: "В какой таблице обычно размещается внешний ключ при связи 1:N?",
+                      options: ["В таблице со стороны «многие».","В обеих таблицах одновременно обязательно.","В отдельной таблице для каждого значения.","В таблице, которая содержит только первичный ключ."], correctIndex: 0 },
+                    { type: 'single', text: "Что делает параметр ON DELETE CASCADE?",
+                      options: ["Удаляет связанные записи при удалении родительской записи.","Запрещает удаление всех записей из таблицы.","Устанавливает значения внешнего ключа автоматически.","Создаёт копию удаляемой записи в другой таблице."], correctIndex: 0 },
+                    { type: 'single', text: "Что выполняет параметр ON DELETE SET NULL?",
+                      options: ["Запрещает удаление родительской записи.","Удаляет всю связанную таблицу целиком.","Устанавливает NULL во внешних ключах связанных записей.","Заменяет внешний ключ значением первичного ключа."], correctIndex: 2 },
+                    { type: 'single', text: "Для чего используется ON DELETE RESTRICT?",
+                      options: ["Для создания дополнительного индекса таблицы.","Для запрета удаления родительской записи при наличии зависимостей.","Для автоматического удаления дочерних записей.","Для изменения внешнего ключа на NULL."], correctIndex: 1 },
+                    { type: 'single', text: "Как называется процесс уменьшения избыточности данных в базе?",
+                      options: ["Индексация.","Сортировка.","Архивирование.","Нормализация."], correctIndex: 3 },
+                    { type: 'single', text: "Как расшифровывается аббревиатура SQL?",
+                      options: ["Standard Question Language.","Structured Query Language.","Simple Quality Language.","System Quick Language."], correctIndex: 1 },
+                    { type: 'single', text: "Для чего предназначен язык SQL?",
+                      options: ["Для настройки компьютерного оборудования.","Для разработки операционных систем.","Для создания графических изображений.","Для управления и обработки данных в БД."], correctIndex: 3 },
+                    { type: 'single', text: "Что означает DDL в языке SQL?",
+                      options: ["Язык управления транзакциями.","Язык обработки графической информации.","Язык определения структуры данных.","Язык управления доступом."], correctIndex: 2 },
+                    { type: 'single', text: "Какая команда используется для создания новой таблицы?",
+                      options: ["CREATE TABLE.","INSERT.","UPDATE.","SELECT."], correctIndex: 0 },
+                    { type: 'single', text: "Какая команда используется для добавления новых записей?",
+                      options: ["DELETE FROM.","DROP TABLE.","ALTER TABLE.","INSERT INTO."], correctIndex: 3 },
+                    { type: 'single', text: "Какая команда используется для получения данных из таблицы?",
+                      options: ["UPDATE.","CREATE.","SELECT.","DROP."], correctIndex: 2 },
+                    { type: 'single', text: "Для чего используется оператор WHERE?",
+                      options: ["Для создания новой базы данных.","Для удаления структуры таблицы.","Для фильтрации записей по условию.","Для сортировки записей таблицы."], correctIndex: 2 },
+                    { type: 'single', text: "Какой оператор SQL применяется для сортировки данных?",
+                      options: ["GROUP BY.","HAVING.","WHERE.","ORDER BY."], correctIndex: 3 },
+                    { type: 'single', text: "Какая агрегатная функция подсчитывает количество записей?",
+                      options: ["MAX().","COUNT().","AVG().","SUM()."], correctIndex: 1 },
+                    { type: 'single', text: "Для чего используется оператор JOIN?",
+                      options: ["Для изменения структуры базы данных.","Для удаления записей из нескольких таблиц.","Для объединения данных из связанных таблиц.","Для создания нового первичного ключа."], correctIndex: 2 }
+                ]
             }
         };
 
@@ -1127,94 +1196,24 @@
 
         function renderMenu() {
             state.screen = 'menu';
+            const cards = Object.values(TESTS).map(t => `
+                <div class="menu-card" data-test="${t.id}">
+                    <div class="menu-card-icon">${t.emoji}</div>
+                    <div class="menu-card-body">
+                        <div class="menu-card-title">${t.title}</div>
+                        <div class="menu-card-desc">${t.questions.length} вопросов · ${t.description}</div>
+                    </div>
+                    <div class="menu-card-arrow">→</div>
+                </div>
+            `).join('');
+
             app.innerHTML = `
                 ${topBarHTML()}
                 <div class="menu-screen">
                     <div class="menu-emoji">🧠</div>
                     <div class="menu-title">Тесты по Базам данных</div>
                     <div class="menu-sub">Выберите тест для прохождения</div>
-                    <div class="menu-cards">
-                        <div class="menu-card" data-test="lecture1">
-                            <div class="menu-card-icon">📘</div>
-                            <div class="menu-card-body">
-                                <div class="menu-card-title">Тест по 1 лекции</div>
-                                <div class="menu-card-desc">${TESTS.lecture1.questions.length} вопросов · Основы БД, модели данных, виды СУБД</div>
-                            </div>
-                            <div class="menu-card-arrow">→</div>
-                        </div>
-                        <div class="menu-card" data-test="lecture2">
-                            <div class="menu-card-icon">📗</div>
-                            <div class="menu-card-body">
-                                <div class="menu-card-title">Тест по 2 лекции</div>
-                                <div class="menu-card-desc">${TESTS.lecture2.questions.length} вопросов · MS Access, объекты, типы данных</div>
-                            </div>
-                            <div class="menu-card-arrow">→</div>
-                        </div>
-                        <div class="menu-card" data-test="lecture3">
-                            <div class="menu-card-icon">📙</div>
-                            <div class="menu-card-body">
-                                <div class="menu-card-title">Тест по 3 лекции</div>
-                                <div class="menu-card-desc">${TESTS.lecture3.questions.length} вопросов · Структуры данных и модели данных</div>
-                            </div>
-                            <div class="menu-card-arrow">→</div>
-                        </div>
-                        <div class="menu-card" data-test="lecture4">
-                            <div class="menu-card-icon">📕</div>
-                            <div class="menu-card-body">
-                                <div class="menu-card-title">Тест по 4 лекции</div>
-                                <div class="menu-card-desc">${TESTS.lecture4.questions.length} вопросов · Реляционная модель данных, домены, индексы</div>
-                            </div>
-                            <div class="menu-card-arrow">→</div>
-                        </div>
-                        <div class="menu-card" data-test="lecture5">
-                            <div class="menu-card-icon">📔</div>
-                            <div class="menu-card-body">
-                                <div class="menu-card-title">Тест по 5 лекции</div>
-                                <div class="menu-card-desc">${TESTS.lecture5.questions.length} вопросов · Ограничения целостности БД</div>
-                            </div>
-                            <div class="menu-card-arrow">→</div>
-                        </div>
-                        <div class="menu-card" data-test="lecture6">
-                            <div class="menu-card-icon">📓</div>
-                            <div class="menu-card-body">
-                                <div class="menu-card-title">Тест по 6 лекции</div>
-                                <div class="menu-card-desc">${TESTS.lecture6.questions.length} вопросов · Реляционная алгебра и исчисление</div>
-                            </div>
-                            <div class="menu-card-arrow">→</div>
-                        </div>
-                        <div class="menu-card" data-test="lecture7">
-                            <div class="menu-card-icon">📒</div>
-                            <div class="menu-card-body">
-                                <div class="menu-card-title">Тест по 7 лекции</div>
-                                <div class="menu-card-desc">${TESTS.lecture7.questions.length} вопросов · Транзакции и восстановление БД</div>
-                            </div>
-                            <div class="menu-card-arrow">→</div>
-                        </div>
-                        <div class="menu-card" data-test="lecture8">
-                            <div class="menu-card-icon">📄</div>
-                            <div class="menu-card-body">
-                                <div class="menu-card-title">Тест по 8 лекции</div>
-                                <div class="menu-card-desc">${TESTS.lecture8.questions.length} вопросов · Сериализация транзакций и блокировки</div>
-                            </div>
-                            <div class="menu-card-arrow">→</div>
-                        </div>
-                        <div class="menu-card" data-test="lecture9">
-                            <div class="menu-card-icon">📑</div>
-                            <div class="menu-card-body">
-                                <div class="menu-card-title">Тест по 9 лекции</div>
-                                <div class="menu-card-desc">${TESTS.lecture9.questions.length} вопросов · Проектирование баз данных</div>
-                            </div>
-                            <div class="menu-card-arrow">→</div>
-                        </div>
-                        <div class="menu-card" data-test="lecture10">
-                            <div class="menu-card-icon">📚</div>
-                            <div class="menu-card-body">
-                                <div class="menu-card-title">Тест по 10 лекции</div>
-                                <div class="menu-card-desc">${TESTS.lecture10.questions.length} вопросов · Информационные системы</div>
-                            </div>
-                            <div class="menu-card-arrow">→</div>
-                        </div>
-                    </div>
+                    <div class="menu-cards">${cards}</div>
                 </div>
             `;
 
