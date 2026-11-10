@@ -7,8 +7,88 @@
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
+        :root {
+            --bg: #f2f5f9;
+            --card-bg: #ffffff;
+            --text: #0c2d4b;
+            --text-soft: #4b6379;
+            --text-muted: #566f85;
+            --text-dim: #859eb3;
+            --border: #dfe9f2;
+            --border-soft: #dbe6f0;
+            --option-bg: #f9fcff;
+            --option-hover: #edf4fc;
+            --option-border-hover: #a6c2db;
+            --selected-bg: #e5f0fb;
+            --accent: #1e6f9f;
+            --accent-hover: #155a82;
+            --accent-light: #e5f0fb;
+            --btn-secondary-bg: #eef4f9;
+            --btn-secondary-border: #cddbe8;
+            --btn-secondary-text: #4b6379;
+            --progress-track: #e2ebf4;
+            --progress-fill: linear-gradient(90deg, #1e6f9f, #3ea0d6);
+            --correct-bg: #d7f0e4;
+            --correct-text: #145a38;
+            --correct-border: #2b8c5e;
+            --wrong-bg: #ffe1e1;
+            --wrong-text: #8b2c2c;
+            --wrong-border: #c73e3e;
+            --shadow: 0 20px 40px -12px rgba(0, 20, 40, 0.25);
+            --answer-q-bg: #f5f9fd;
+            --answer-q-active: #1e6f9f;
+            --answer-q-text: #4b6379;
+            --answer-q-border: #dfe9f2;
+            --answer-q-hover: #edf4fc;
+            --review-bg: #f9fcff;
+            --review-correct-border: #2b8c5e;
+            --review-wrong-border: #c73e3e;
+            --sa-bg: #f9fcff;
+            --sa-border: #dfe9f2;
+        }
+
+        body.dark {
+            --bg: #05070a;
+            --card-bg: #0e1218;
+            --text: #e8edf3;
+            --text-soft: #9aa9ba;
+            --text-muted: #8496a8;
+            --text-dim: #5c6e80;
+            --border: #1e2632;
+            --border-soft: #19212c;
+            --option-bg: #0a0e14;
+            --option-hover: #151c26;
+            --option-border-hover: #2a3a4d;
+            --selected-bg: #10263a;
+            --accent: #3ea0d6;
+            --accent-hover: #58b0e0;
+            --accent-light: #0d2233;
+            --btn-secondary-bg: #151c26;
+            --btn-secondary-border: #2a3a4d;
+            --btn-secondary-text: #9aa9ba;
+            --progress-track: #1a2330;
+            --progress-fill: linear-gradient(90deg, #3ea0d6, #58b0e0);
+            --correct-bg: #0d2a1e;
+            --correct-text: #7fe0ac;
+            --correct-border: #2b8c5e;
+            --wrong-bg: #2a0f0f;
+            --wrong-text: #ff9a9a;
+            --wrong-border: #c73e3e;
+            --shadow: 0 20px 50px -8px rgba(0, 0, 0, 0.85);
+            --answer-q-bg: #0a0e14;
+            --answer-q-active: #3ea0d6;
+            --answer-q-text: #9aa9ba;
+            --answer-q-border: #1e2632;
+            --answer-q-hover: #151c26;
+            --review-bg: #0a0e14;
+            --review-correct-border: #2b8c5e;
+            --review-wrong-border: #c73e3e;
+            --sa-bg: #0a0e14;
+            --sa-border: #1e2632;
+        }
+
         body {
-            background: #f2f5f9;
+            background: var(--bg);
             font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
             display: flex;
             flex-direction: column;
@@ -16,17 +96,20 @@
             justify-content: center;
             padding: 1.5rem 1rem;
             min-height: 100vh;
+            color: var(--text);
+            transition: background 0.25s, color 0.25s;
         }
 
         .quiz-container {
             max-width: 720px;
             width: 100%;
-            background: #ffffff;
+            background: var(--card-bg);
             border-radius: 32px;
-            box-shadow: 0 20px 40px -12px rgba(0, 20, 40, 0.25);
+            box-shadow: var(--shadow);
             padding: 2rem 2rem 2.2rem;
             position: relative;
             overflow: hidden;
+            transition: background 0.25s, box-shadow 0.25s;
         }
 
         .top-bar {
@@ -38,7 +121,9 @@
             flex-wrap: wrap;
         }
 
-        .btn-home, .btn-tests, .btn-answers {
+        .top-bar-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
+
+        .btn-home, .btn-tests, .btn-answers, .btn-theme {
             display: inline-flex;
             align-items: center;
             gap: 0.4rem;
@@ -47,42 +132,48 @@
             font-size: 0.88rem;
             padding: 0.5rem 1rem;
             border-radius: 40px;
-            transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+            transition: background 0.2s, transform 0.1s, color 0.2s, border-color 0.2s;
             white-space: nowrap;
             cursor: pointer;
-            border: none;
+            border: 1.5px solid transparent;
             font-family: inherit;
         }
 
-        .btn-home {
-            background: #1e6f9f;
-            color: #ffffff;
-            box-shadow: 0 4px 10px -4px rgba(30, 111, 159, 0.5);
-        }
-        .btn-home:hover { background: #155a82; }
+        .btn-home { background: var(--accent); color: #ffffff; border-color: var(--accent); }
+        .btn-home:hover { background: var(--accent-hover); border-color: var(--accent-hover); }
 
-        .btn-tests {
-            background: #eef4f9;
-            color: #1e6f9f;
-            border: 1.5px solid #cddbe8;
-        }
-        .btn-tests:hover { background: #e0ebf5; border-color: #a6c2db; }
+        .btn-tests { background: var(--btn-secondary-bg); color: var(--accent); border-color: var(--btn-secondary-border); }
+        .btn-tests:hover { background: var(--option-hover); border-color: var(--option-border-hover); }
 
         .btn-answers {
             background: #fff4e0;
             color: #a86a00;
-            border: 1.5px solid #f0d9a8;
+            border-color: #f0d9a8;
         }
         .btn-answers:hover { background: #ffeec8; border-color: #e0c078; }
 
-        .btn-home:active, .btn-tests:active, .btn-answers:active { transform: scale(0.96); }
+        body.dark .btn-answers {
+            background: #2a1e05;
+            color: #ffc966;
+            border-color: #5a4515;
+        }
+        body.dark .btn-answers:hover { background: #3a2a08; border-color: #7a5e1d; }
 
-        .top-bar-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+        .btn-theme {
+            background: var(--btn-secondary-bg);
+            color: var(--accent);
+            border-color: var(--btn-secondary-border);
+            padding: 0.5rem 0.7rem;
+            font-size: 1.05rem;
+        }
+        .btn-theme:hover { background: var(--option-hover); border-color: var(--option-border-hover); }
+
+        .btn-home:active, .btn-tests:active, .btn-answers:active, .btn-theme:active { transform: scale(0.96); }
 
         .menu-screen { text-align: center; animation: fadeSlide 0.4s ease; }
         .menu-emoji { font-size: 3.5rem; line-height: 1; margin-bottom: 0.6rem; }
-        .menu-title { font-size: 1.8rem; font-weight: 700; color: #0b2b4a; margin-bottom: 0.4rem; }
-        .menu-sub { color: #4b6379; font-size: 1rem; margin-bottom: 2rem; }
+        .menu-title { font-size: 1.8rem; font-weight: 700; color: var(--text); margin-bottom: 0.4rem; }
+        .menu-sub { color: var(--text-soft); font-size: 1rem; margin-bottom: 2rem; }
         .menu-cards { display: flex; flex-direction: column; gap: 1rem; }
 
         .menu-card {
@@ -90,15 +181,15 @@
             align-items: center;
             gap: 1.2rem;
             padding: 1.3rem 1.5rem;
-            background: #f9fcff;
-            border: 1.5px solid #dfe9f2;
+            background: var(--option-bg);
+            border: 1.5px solid var(--border);
             border-radius: 20px;
             cursor: pointer;
             transition: background 0.15s, border-color 0.15s, transform 0.1s;
             text-align: left;
-            color: #1f3b57;
+            color: var(--text-muted);
         }
-        .menu-card:hover { background: #edf4fc; border-color: #a6c2db; transform: translateY(-2px); }
+        .menu-card:hover { background: var(--option-hover); border-color: var(--option-border-hover); transform: translateY(-2px); }
         .menu-card:active { transform: scale(0.99); }
 
         .menu-card-icon {
@@ -108,25 +199,19 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: #e5f0fb;
+            background: var(--accent-light);
             border-radius: 16px;
             flex-shrink: 0;
         }
         .menu-card-body { flex: 1; }
-        .menu-card-title { font-weight: 700; font-size: 1.15rem; color: #0c2d4b; margin-bottom: 0.25rem; }
-        .menu-card-desc { color: #566f85; font-size: 0.9rem; }
-        .menu-card-arrow { font-size: 1.4rem; color: #1e6f9f; }
+        .menu-card-title { font-weight: 700; font-size: 1.15rem; color: var(--text); margin-bottom: 0.25rem; }
+        .menu-card-desc { color: var(--text-muted); font-size: 0.9rem; }
+        .menu-card-arrow { font-size: 1.4rem; color: var(--accent); }
 
         .progress-wrap { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.8rem; }
-        .progress-track { flex: 1; height: 10px; background: #e2ebf4; border-radius: 20px; overflow: hidden; }
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #1e6f9f, #3ea0d6);
-            border-radius: 20px;
-            transition: width 0.35s ease;
-            width: 0%;
-        }
-        .progress-text { font-size: 0.9rem; font-weight: 600; color: #4b6379; white-space: nowrap; }
+        .progress-track { flex: 1; height: 10px; background: var(--progress-track); border-radius: 20px; overflow: hidden; }
+        .progress-fill { height: 100%; background: var(--progress-fill); border-radius: 20px; transition: width 0.35s ease; width: 0%; }
+        .progress-text { font-size: 0.9rem; font-weight: 600; color: var(--text-soft); white-space: nowrap; }
 
         .card { animation: fadeSlide 0.35s ease; }
         @keyframes fadeSlide {
@@ -140,8 +225,8 @@
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.6px;
-            color: #1e6f9f;
-            background: #e5f0fb;
+            color: var(--accent);
+            background: var(--accent-light);
             padding: 0.25rem 0.7rem;
             border-radius: 30px;
             margin-bottom: 1rem;
@@ -149,7 +234,7 @@
 
         .question-header { display: flex; align-items: baseline; gap: 1rem; margin-bottom: 1.3rem; }
         .question-number {
-            background: #1e6f9f;
+            background: var(--accent);
             color: white;
             font-weight: 600;
             font-size: 0.95rem;
@@ -157,7 +242,7 @@
             border-radius: 12px;
             flex-shrink: 0;
         }
-        .question-text { font-weight: 600; font-size: 1.2rem; color: #0c2d4b; line-height: 1.4; }
+        .question-text { font-weight: 600; font-size: 1.2rem; color: var(--text); line-height: 1.4; }
 
         .options { display: flex; flex-direction: column; gap: 0.7rem; margin-top: 1rem; }
 
@@ -166,36 +251,36 @@
             align-items: flex-start;
             gap: 0.85rem;
             padding: 0.9rem 1rem;
-            background: #f9fcff;
+            background: var(--option-bg);
             border-radius: 14px;
-            border: 1.5px solid #dfe9f2;
+            border: 1.5px solid var(--border);
             cursor: pointer;
             transition: background 0.15s, border-color 0.15s, transform 0.1s;
             font-size: 1rem;
-            color: #1f3b57;
+            color: var(--text-muted);
         }
-        .option:hover { background: #edf4fc; border-color: #a6c2db; }
+        .option:hover { background: var(--option-hover); border-color: var(--option-border-hover); }
         .option:active { transform: scale(0.99); }
-        .option.selected { background: #e5f0fb; border-color: #1e6f9f; box-shadow: 0 0 0 1px #1e6f9f inset; }
+        .option.selected { background: var(--selected-bg); border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent) inset; }
         .option.locked { cursor: default; }
-        .option.locked:hover { background: #f9fcff; border-color: #dfe9f2; }
+        .option.locked:hover { background: var(--option-bg); border-color: var(--border); }
 
         .option.option-correct {
-            background: #d7f0e4 !important;
-            border-color: #2b8c5e !important;
-            color: #145a38;
+            background: var(--correct-bg) !important;
+            border-color: var(--correct-border) !important;
+            color: var(--correct-text);
             font-weight: 500;
             cursor: default;
         }
-        .option.option-correct:hover { background: #d7f0e4 !important; border-color: #2b8c5e !important; }
+        .option.option-correct:hover { background: var(--correct-bg) !important; border-color: var(--correct-border) !important; }
 
         .option.option-wrong {
-            background: #ffe1e1 !important;
-            border-color: #c73e3e !important;
-            color: #8b2c2c;
+            background: var(--wrong-bg) !important;
+            border-color: var(--wrong-border) !important;
+            color: var(--wrong-text);
             cursor: default;
         }
-        .option.option-wrong:hover { background: #ffe1e1 !important; border-color: #c73e3e !important; }
+        .option.option-wrong:hover { background: var(--wrong-bg) !important; border-color: var(--wrong-border) !important; }
 
         .option .mark {
             font-weight: 700;
@@ -207,15 +292,15 @@
         }
         .option.option-correct .mark,
         .option.option-wrong .mark { display: inline-block; }
-        .option.option-correct .mark { color: #1e6e48; }
-        .option.option-wrong .mark { color: #a63a3a; }
+        .option.option-correct .mark { color: var(--correct-text); }
+        .option.option-wrong .mark { color: var(--wrong-text); }
 
         .option input[type="radio"],
         .option input[type="checkbox"] {
             margin-top: 3px;
             width: 18px;
             height: 18px;
-            accent-color: #1e6f9f;
+            accent-color: var(--accent);
             flex-shrink: 0;
             cursor: pointer;
         }
@@ -224,7 +309,7 @@
         .option label { cursor: pointer; flex: 1; line-height: 1.45; }
         .option.locked label { cursor: default; }
 
-        .multi-hint { font-size: 0.85rem; color: #859eb3; margin-top: 0.6rem; font-style: italic; }
+        .multi-hint { font-size: 0.85rem; color: var(--text-dim); margin-top: 0.6rem; font-style: italic; }
 
         .feedback {
             margin-top: 1.2rem;
@@ -238,8 +323,8 @@
             flex-wrap: wrap;
             animation: fadeSlide 0.3s ease;
         }
-        .feedback.ok { background: #d7f0e4; color: #145a38; border: 1px solid #a8ddc3; }
-        .feedback.no { background: #ffe1e1; color: #8b2c2c; border: 1px solid #f2baba; }
+        .feedback.ok { background: var(--correct-bg); color: var(--correct-text); border: 1px solid var(--correct-border); }
+        .feedback.no { background: var(--wrong-bg); color: var(--wrong-text); border: 1px solid var(--wrong-border); }
 
         .nav-bar { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-top: 1.8rem; }
 
@@ -250,26 +335,27 @@
             padding: 0.85rem 1.8rem;
             border-radius: 60px;
             cursor: pointer;
-            transition: background 0.2s, transform 0.1s, opacity 0.2s;
-            background: white;
-            color: #1e6f9f;
-            border: 1.5px solid #1e6f9f;
+            transition: background 0.2s, transform 0.1s, opacity 0.2s, color 0.2s, border-color 0.2s;
+            background: transparent;
+            color: var(--accent);
+            border: 1.5px solid var(--accent);
             white-space: nowrap;
+            font-family: inherit;
         }
-        .btn-primary { background: #1e6f9f; color: white; border: 1.5px solid #1e6f9f; }
-        .btn-primary:hover:not(:disabled) { background: #155a82; border-color: #155a82; }
-        .btn-secondary:hover:not(:disabled) { background: #e6f0f9; }
+        .btn-primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+        .btn-primary:hover:not(:disabled) { background: var(--accent-hover); border-color: var(--accent-hover); }
+        .btn-secondary:hover:not(:disabled) { background: var(--option-hover); }
         .btn:active:not(:disabled) { transform: scale(0.97); }
         .btn:disabled { opacity: 0.4; cursor: not-allowed; }
 
-        .btn-ghost { background: transparent; border: 1.5px solid #cddbe8; color: #4b6379; }
-        .btn-ghost:hover:not(:disabled) { background: #eef4f9; border-color: #a6c2db; }
+        .btn-ghost { background: transparent; border-color: var(--btn-secondary-border); color: var(--btn-secondary-text); }
+        .btn-ghost:hover:not(:disabled) { background: var(--option-hover); border-color: var(--option-border-hover); }
 
         .result-screen { text-align: center; animation: fadeSlide 0.4s ease; }
         .result-emoji { font-size: 4rem; line-height: 1; margin-bottom: 0.5rem; }
-        .result-title { font-size: 1.6rem; font-weight: 700; color: #0b2b4a; margin-bottom: 0.5rem; }
-        .result-score { font-size: 1.1rem; color: #4b6379; margin-bottom: 1.8rem; line-height: 1.6; }
-        .result-score strong { color: #1e6f9f; font-size: 1.3rem; }
+        .result-title { font-size: 1.6rem; font-weight: 700; color: var(--text); margin-bottom: 0.5rem; }
+        .result-score { font-size: 1.1rem; color: var(--text-soft); margin-bottom: 1.8rem; line-height: 1.6; }
+        .result-score strong { color: var(--accent); font-size: 1.3rem; }
         .result-actions { display: flex; justify-content: center; gap: 0.8rem; flex-wrap: wrap; }
 
         .review-list {
@@ -283,127 +369,151 @@
             padding-right: 0.5rem;
         }
         .review-list::-webkit-scrollbar { width: 8px; }
-        .review-list::-webkit-scrollbar-thumb { background: #cddbe8; border-radius: 10px; }
+        .review-list::-webkit-scrollbar-thumb { background: var(--btn-secondary-border); border-radius: 10px; }
 
         .review-item {
-            background: #f9fcff;
+            background: var(--review-bg);
             border-radius: 14px;
             padding: 0.9rem 1rem;
-            border: 1px solid #dbe6f0;
-            border-left: 5px solid #cddbe8;
+            border: 1px solid var(--border-soft);
+            border-left: 5px solid var(--border-soft);
             font-size: 0.95rem;
         }
-        .review-item.correct { border-left-color: #2b8c5e; }
-        .review-item.wrong { border-left-color: #c73e3e; }
+        .review-item.correct { border-left-color: var(--review-correct-border); }
+        .review-item.wrong { border-left-color: var(--review-wrong-border); }
 
-        .review-q { font-weight: 600; color: #0c2d4b; margin-bottom: 0.5rem; line-height: 1.4; }
-        .review-ans { font-size: 0.9rem; color: #566f85; line-height: 1.5; }
-        .review-ans .ok-label { color: #1e6e48; font-weight: 600; }
-        .review-ans .no-label { color: #a63a3a; font-weight: 600; }
+        .review-q { font-weight: 600; color: var(--text); margin-bottom: 0.5rem; line-height: 1.4; }
+        .review-ans { font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; }
+        .review-ans .ok-label { color: var(--correct-text); font-weight: 600; }
+        .review-ans .no-label { color: var(--wrong-text); font-weight: 600; }
 
         /* ======== ЭКРАН ОТВЕТОВ ======== */
         .answers-screen { animation: fadeSlide 0.4s ease; }
 
-        .answers-header {
-            text-align: center;
-            margin-bottom: 1.8rem;
-        }
-        .answers-emoji { font-size: 3rem; line-height: 1; margin-bottom: 0.4rem; }
-        .answers-title {
-            font-size: 1.6rem;
-            font-weight: 700;
-            color: #0b2b4a;
-            margin-bottom: 0.3rem;
-        }
-        .answers-sub { color: #4b6379; font-size: 0.95rem; }
+        .answers-header { text-align: center; margin-bottom: 1.4rem; }
+        .answers-emoji { font-size: 2.6rem; line-height: 1; margin-bottom: 0.3rem; }
+        .answers-title { font-size: 1.5rem; font-weight: 700; color: var(--text); margin-bottom: 0.25rem; }
+        .answers-sub { color: var(--text-soft); font-size: 0.9rem; }
 
         .test-tabs {
             display: flex;
-            gap: 0.5rem;
+            gap: 0.4rem;
             overflow-x: auto;
-            padding-bottom: 0.6rem;
-            margin-bottom: 1.4rem;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.2rem;
             -webkit-overflow-scrolling: touch;
             scrollbar-width: thin;
         }
         .test-tabs::-webkit-scrollbar { height: 6px; }
-        .test-tabs::-webkit-scrollbar-thumb { background: #cddbe8; border-radius: 10px; }
+        .test-tabs::-webkit-scrollbar-thumb { background: var(--btn-secondary-border); border-radius: 10px; }
 
         .test-tab {
             flex-shrink: 0;
-            padding: 0.55rem 1rem;
-            border-radius: 40px;
+            padding: 0.45rem 0.85rem;
+            border-radius: 30px;
             font-weight: 600;
-            font-size: 0.85rem;
-            background: #eef4f9;
-            color: #4b6379;
-            border: 1.5px solid #dfe9f2;
+            font-size: 0.8rem;
+            background: var(--btn-secondary-bg);
+            color: var(--btn-secondary-text);
+            border: 1.5px solid var(--border);
             cursor: pointer;
             transition: background 0.15s, color 0.15s, border-color 0.15s;
             white-space: nowrap;
             font-family: inherit;
         }
-        .test-tab:hover { background: #e0ebf5; border-color: #a6c2db; }
-        .test-tab.active {
-            background: #1e6f9f;
-            color: #ffffff;
-            border-color: #1e6f9f;
-        }
+        .test-tab:hover { background: var(--option-hover); border-color: var(--option-border-hover); }
+        .test-tab.active { background: var(--accent); color: #ffffff; border-color: var(--accent); }
 
-        .answers-list {
+        .q-pager {
             display: flex;
-            flex-direction: column;
-            gap: 0.6rem;
-            max-height: 58vh;
+            flex-wrap: wrap;
+            gap: 0.35rem;
+            justify-content: center;
+            margin-bottom: 1.1rem;
+            padding: 0.6rem;
+            background: var(--answer-q-bg);
+            border-radius: 14px;
+            max-height: 90px;
             overflow-y: auto;
-            padding-right: 0.5rem;
         }
-        .answers-list::-webkit-scrollbar { width: 8px; }
-        .answers-list::-webkit-scrollbar-thumb { background: #cddbe8; border-radius: 10px; }
+        .q-pager::-webkit-scrollbar { width: 6px; }
+        .q-pager::-webkit-scrollbar-thumb { background: var(--btn-secondary-border); border-radius: 10px; }
 
-        .answer-row {
-            display: flex;
-            align-items: flex-start;
-            gap: 0.75rem;
-            padding: 0.7rem 0.9rem;
-            background: #f9fcff;
-            border-radius: 12px;
-            border: 1px solid #e2ecf5;
-        }
-
-        .answer-num {
-            background: #e5f0fb;
-            color: #1e6f9f;
-            font-weight: 700;
-            font-size: 0.8rem;
-            min-width: 30px;
-            height: 26px;
+        .q-dot {
+            width: 30px;
+            height: 30px;
+            border-radius: 9px;
+            border: 1.5px solid var(--answer-q-border);
+            background: var(--card-bg);
+            color: var(--answer-q-text);
+            font-size: 0.78rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.15s, color 0.15s, border-color 0.15s, transform 0.15s;
+            font-family: inherit;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 8px;
             flex-shrink: 0;
         }
+        .q-dot:hover { background: var(--answer-q-hover); border-color: var(--option-border-hover); }
+        .q-dot.active {
+            background: var(--answer-q-active);
+            color: #ffffff;
+            border-color: var(--answer-q-active);
+            transform: scale(1.05);
+        }
 
-        .answer-content { flex: 1; min-width: 0; }
-        .answer-q {
-            font-size: 0.86rem;
-            color: #566f85;
-            margin-bottom: 0.25rem;
-            line-height: 1.35;
-            overflow: hidden;
-            text-overflow: ellipsis;
+        .single-answer-card {
+            background: var(--sa-bg);
+            border: 1.5px solid var(--sa-border);
+            border-radius: 18px;
+            padding: 1.2rem 1.3rem;
+            margin-bottom: 1rem;
+            animation: fadeSlide 0.25s ease;
         }
-        .answer-text {
-            font-size: 0.92rem;
+
+        .sa-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.7rem;
+        }
+        .sa-num {
+            background: var(--accent-light);
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 0.78rem;
+            padding: 0.25rem 0.7rem;
+            border-radius: 20px;
+        }
+        .sa-counter { font-size: 0.78rem; color: var(--text-dim); font-weight: 600; }
+
+        .sa-question {
             font-weight: 600;
-            color: #145a38;
-            background: #d7f0e4;
-            padding: 0.25rem 0.6rem;
-            border-radius: 8px;
-            display: inline-block;
-            line-height: 1.35;
+            color: var(--text);
+            font-size: 1rem;
+            line-height: 1.45;
+            margin-bottom: 1rem;
         }
+
+        .sa-answer {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.6rem;
+            background: var(--correct-bg);
+            color: var(--correct-text);
+            padding: 0.7rem 0.9rem;
+            border-radius: 12px;
+            font-size: 0.93rem;
+            font-weight: 500;
+            line-height: 1.45;
+            border-left: 4px solid var(--correct-border);
+        }
+        .sa-answer .sa-check { font-weight: 700; color: var(--correct-text); flex-shrink: 0; }
+
+        .answers-nav { display: flex; justify-content: space-between; align-items: center; gap: 0.6rem; }
+        .answers-nav .btn { padding: 0.7rem 1.3rem; font-size: 0.9rem; }
 
         .hidden { display: none !important; }
 
@@ -417,8 +527,10 @@
             .menu-card { padding: 1rem 1.1rem; }
             .menu-card-icon { width: 46px; height: 46px; font-size: 1.6rem; }
             .top-bar { justify-content: center; }
-            .answers-title { font-size: 1.3rem; }
-            .answers-list { max-height: 50vh; }
+            .answers-title { font-size: 1.2rem; }
+            .q-dot { width: 27px; height: 27px; font-size: 0.72rem; }
+            .sa-question { font-size: 0.94rem; }
+            .sa-answer { font-size: 0.87rem; }
         }
     </style>
 </head>
@@ -428,6 +540,28 @@
     <script>
         const MAIN_URL = 'https://chikontaiii.github.io/PKS-7-24/';
 
+        // ============================================================
+        //  ТЕМА (сохраняется в localStorage)
+        // ============================================================
+        (function initTheme() {
+            let saved = null;
+            try { saved = localStorage.getItem('bd_theme'); } catch (e) {}
+            if (saved === 'dark') {
+                document.body.classList.add('dark');
+            }
+        })();
+
+        function toggleTheme() {
+            const isDark = document.body.classList.toggle('dark');
+            try { localStorage.setItem('bd_theme', isDark ? 'dark' : 'light'); } catch (e) {}
+            // Обновляем иконку кнопки
+            const btn = document.getElementById('themeBtn');
+            if (btn) btn.textContent = isDark ? '☀️' : '🌙';
+        }
+
+        // ============================================================
+        //  ДАННЫЕ ТЕСТОВ
+        // ============================================================
         const TESTS = {
             lecture1: {
                 id: 'lecture1',
@@ -1066,18 +1200,78 @@
                     { type: 'single', text: "Для чего используется оператор JOIN?",
                       options: ["Для изменения структуры базы данных.","Для удаления записей из нескольких таблиц.","Для объединения данных из связанных таблиц.","Для создания нового первичного ключа."], correctIndex: 2 }
                 ]
+            },
+
+            lecture12: {
+                id: 'lecture12',
+                title: 'Тест по 12 лекции',
+                emoji: '🧾',
+                description: 'SQL: группы команд, транзакции, права доступа',
+                questions: [
+                    { type: 'single', text: "Что означает аббревиатура SQL?",
+                      options: ["System Quality Language","Structured Query Language","Simple Query Logic","Standard Question Language"], correctIndex: 1 },
+                    { type: 'single', text: "Для чего предназначена группа команд DDL?",
+                      options: ["Для управления транзакциями","Для управления правами пользователей базы данных","Для создания и изменения структуры базы данных","Для поиска информации в таблицах"], correctIndex: 2 },
+                    { type: 'single', text: "Какая команда используется для создания новой таблицы?",
+                      options: ["SELECT TABLE","UPDATE TABLE","INSERT TABLE","CREATE TABLE"], correctIndex: 3 },
+                    { type: 'single', text: "Какую функцию выполняет команда ALTER TABLE?",
+                      options: ["Выводит данные на экран компьютера пользователя","Удаляет все записи из таблицы","Создаёт новую базу данных","Изменяет структуру существующей таблицы"], correctIndex: 3 },
+                    { type: 'single', text: "Какая команда полностью удаляет таблицу вместе с её структурой?",
+                      options: ["SELECT TABLE","DELETE TABLE","UPDATE TABLE","DROP TABLE"], correctIndex: 3 },
+                    { type: 'single', text: "Для чего применяется команда TRUNCATE TABLE?",
+                      options: ["Для изменения названия таблицы","Для добавления новых столбцов","Для удаления всех строк из таблицы","Для поиска определённых записей"], correctIndex: 2 },
+                    { type: 'single', text: "Какая группа команд используется для добавления, изменения и удаления данных?",
+                      options: ["DDL","DML","TCL","DCL"], correctIndex: 1 },
+                    { type: 'single', text: "Какая команда используется для получения данных из таблицы?",
+                      options: ["DROP","ALTER","INSERT","SELECT"], correctIndex: 3 },
+                    { type: 'single', text: "Какая команда добавляет новую запись в таблицу?",
+                      options: ["UPDATE","INSERT","DELETE","CREATE"], correctIndex: 1 },
+                    { type: 'single', text: "Для чего используется команда UPDATE?",
+                      options: ["Для изменения существующих данных","Для создания новой таблицы данных","Для предоставления прав доступа","Для удаления всей таблицы данных"], correctIndex: 0 },
+                    { type: 'single', text: "Какая команда удаляет определённые записи из таблицы?",
+                      options: ["GRANT","DELETE","CREATE","ALTER"], correctIndex: 1 },
+                    { type: 'single', text: "Какая команда SQL используется для фильтрации записей по условию?",
+                      options: ["GROUP BY","ORDER BY","WHERE","JOIN"], correctIndex: 2 },
+                    { type: 'single', text: "Для чего используется оператор JOIN?",
+                      options: ["Для удаления записей из таблицы базы данных","Для создания нового индекса","Для соединения данных из нескольких таблиц","Для изменения прав пользователей базы данных"], correctIndex: 2 },
+                    { type: 'single', text: "Какая команда сортирует данные в порядке возрастания или убывания?",
+                      options: ["ORDER","INSERT","DELETE","WHERE"], correctIndex: 0 },
+                    { type: 'single', text: "Какая функция подсчитывает количество записей в таблице?",
+                      options: ["COUNT()","MAX()","SUM()","AVG()"], correctIndex: 0 },
+                    { type: 'single', text: "Для чего используется команда GRANT?",
+                      options: ["Для предоставления прав","Для изменения структуры базы данных","Для удаления таблицы базы данных","Для отмены транзакции базы данных"], correctIndex: 0 },
+                    { type: 'single', text: "Какую функцию выполняет команда REVOKE?",
+                      options: ["Сохраняет изменения транзакции","Добавляет новую запись в базу данных","Создаёт новую таблицу для пользователя базы данных","Отзывает ранее предоставленные права доступа"], correctIndex: 3 },
+                    { type: 'single', text: "Что означает TCL в языке SQL?",
+                      options: ["Язык управления доступом","Язык манипулирования данными","Язык управления транзакциями","Язык определения данных"], correctIndex: 2 },
+                    { type: 'single', text: "Что такое транзакция в базе данных?",
+                      options: ["Набор операций, выполняемых как единое целое","Отдельный столбец таблицы","Способ сортировки записей","Команда для создания индекса для достижения единого целого"], correctIndex: 0 },
+                    { type: 'single', text: "Какая команда подтверждает и сохраняет изменения транзакции?",
+                      options: ["DELETE","SAVEPOINT","ROLLBACK","COMMIT"], correctIndex: 3 },
+                    { type: 'single', text: "Для чего используется команда ROLLBACK?",
+                      options: ["Для предоставления прав доступа пользователю базы данных","Для создания в базе данных индекса для новой таблицы","Для сортировки записей","Для отмены неподтверждённых изменений транзакции"], correctIndex: 3 },
+                    { type: 'single', text: "Для чего предназначена команда SAVEPOINT?",
+                      options: ["Для установки контрольной точки внутри транзакции","Для полного удаления созданной перспективной базы данных","Для автоматической сортировки стабильной таблицы базы данных","Для создания нового пользователя по базе данных"], correctIndex: 0 },
+                    { type: 'single', text: "Какой уровень изоляции транзакций является самым строгим?",
+                      options: ["REPEATABLE READ","READ UNCOMMITTED","READ COMMITTED","SERIALIZABLE"], correctIndex: 3 },
+                    { type: 'single', text: "Какой уровень изоляции допускает чтение неподтверждённых данных?",
+                      options: ["READ COMMITTED","READ UNCOMMITTED","SERIALIZABLE","REPEATABLE READ"], correctIndex: 1 },
+                    { type: 'single', text: "Для чего используется команда BEGIN TRANSACTION?",
+                      options: ["Для начала выполнения транзакции","Для завершения работы базы данных","Для удаления всех записей","Для отмены всех таблиц"], correctIndex: 0 }
+                ]
             }
         };
 
         let state = {
-            screen: 'menu',       // 'menu' | 'quiz' | 'result' | 'answers'
+            screen: 'menu',
             test: null,
             currentIndex: 0,
             userAnswers: [],
             answered: [],
             shuffledOptions: [],
             shuffledCorrect: [],
-            answersTab: 'lecture1'   // текущая вкладка в экране ответов
+            answersTab: 'lecture1',
+            answersIndex: 0
         };
 
         const app = document.getElementById('app');
@@ -1132,14 +1326,13 @@
             return { shuffledOptions, shuffledCorrect };
         }
 
-        // ============================================================
-        //  ВЕРХНЯЯ ПАНЕЛЬ
-        // ============================================================
         function topBarHTML() {
+            const isDark = document.body.classList.contains('dark');
             return `
                 <div class="top-bar">
                     <a class="btn-home" href="${MAIN_URL}">🏠 На главную</a>
                     <div class="top-bar-buttons">
+                        <button type="button" class="btn-theme" id="themeBtn" title="Переключить тему">${isDark ? '☀️' : '🌙'}</button>
                         <button type="button" class="btn-answers" id="toAnswersBtn">📋 Ответы</button>
                         <button type="button" class="btn-tests" id="toMenuBtn">🧪 К тестам</button>
                     </div>
@@ -1152,7 +1345,10 @@
             if (toMenuBtn) toMenuBtn.addEventListener('click', renderMenu);
 
             const toAnswersBtn = document.getElementById('toAnswersBtn');
-            if (toAnswersBtn) toAnswersBtn.addEventListener('click', () => renderAnswers(state.answersTab));
+            if (toAnswersBtn) toAnswersBtn.addEventListener('click', () => renderAnswers(state.answersTab, 0));
+
+            const themeBtn = document.getElementById('themeBtn');
+            if (themeBtn) themeBtn.addEventListener('click', toggleTheme);
         }
 
         // ============================================================
@@ -1198,12 +1394,22 @@
             return q.options[q.correctIndex];
         }
 
-        function renderAnswers(activeTab) {
+        function renderAnswers(activeTab, activeIndex) {
             state.screen = 'answers';
             if (activeTab && TESTS[activeTab]) state.answersTab = activeTab;
             const testKeys = Object.keys(TESTS);
             const current = TESTS[state.answersTab] || TESTS[testKeys[0]];
             state.answersTab = current.id;
+
+            const total = current.questions.length;
+            if (typeof activeIndex === 'number' && activeIndex >= 0 && activeIndex < total) {
+                state.answersIndex = activeIndex;
+            } else if (state.answersIndex >= total) {
+                state.answersIndex = 0;
+            }
+
+            const idx = state.answersIndex;
+            const q = current.questions[idx];
 
             const tabsHtml = testKeys.map(key => {
                 const t = TESTS[key];
@@ -1213,14 +1419,8 @@
                 </button>`;
             }).join('');
 
-            const rowsHtml = current.questions.map((q, idx) => `
-                <div class="answer-row">
-                    <div class="answer-num">${idx + 1}</div>
-                    <div class="answer-content">
-                        <div class="answer-q">${q.text}</div>
-                        <div class="answer-text">${getCorrectAnswerText(q)}</div>
-                    </div>
-                </div>
+            const pagerHtml = current.questions.map((_, i) => `
+                <button type="button" class="q-dot ${i === idx ? 'active' : ''}" data-idx="${i}">${i + 1}</button>
             `).join('');
 
             app.innerHTML = `
@@ -1229,25 +1429,53 @@
                     <div class="answers-header">
                         <div class="answers-emoji">📋</div>
                         <div class="answers-title">Ответы к тестам</div>
-                        <div class="answers-sub">Все правильные ответы по лекциям</div>
+                        <div class="answers-sub">Выберите тест и листайте вопросы</div>
                     </div>
-                    <div class="test-tabs" id="testTabs">
-                        ${tabsHtml}
+
+                    <div class="test-tabs" id="testTabs">${tabsHtml}</div>
+
+                    <div class="q-pager" id="qPager">${pagerHtml}</div>
+
+                    <div class="single-answer-card">
+                        <div class="sa-header">
+                            <span class="sa-num">Вопрос ${idx + 1} из ${total}</span>
+                            <span class="sa-counter">${current.emoji} ${current.title}</span>
+                        </div>
+                        <div class="sa-question">${q.text}</div>
+                        <div class="sa-answer">
+                            <span class="sa-check">✓</span>
+                            <span>${getCorrectAnswerText(q)}</span>
+                        </div>
                     </div>
-                    <div style="font-size:0.85rem; color:#859eb3; margin-bottom:0.7rem; text-align:center;">
-                        ${current.emoji} ${current.title} · ${current.questions.length} вопросов
-                    </div>
-                    <div class="answers-list" id="answersList">
-                        ${rowsHtml}
+
+                    <div class="answers-nav">
+                        <button class="btn btn-ghost" id="ansPrev" ${idx === 0 ? 'disabled' : ''}>← Назад</button>
+                        <button class="btn btn-primary" id="ansNext" ${idx === total - 1 ? 'disabled' : ''}>Далее →</button>
                     </div>
                 </div>
             `;
 
             document.querySelectorAll('.test-tab').forEach(tab => {
-                tab.addEventListener('click', () => renderAnswers(tab.dataset.tab));
+                tab.addEventListener('click', () => renderAnswers(tab.dataset.tab, 0));
+            });
+
+            document.querySelectorAll('.q-dot').forEach(dot => {
+                dot.addEventListener('click', () => renderAnswers(state.answersTab, parseInt(dot.dataset.idx)));
+            });
+
+            document.getElementById('ansPrev').addEventListener('click', () => {
+                if (state.answersIndex > 0) renderAnswers(state.answersTab, state.answersIndex - 1);
+            });
+            document.getElementById('ansNext').addEventListener('click', () => {
+                if (state.answersIndex < total - 1) renderAnswers(state.answersTab, state.answersIndex + 1);
             });
 
             attachTopBarHandlers();
+
+            const activeDot = document.querySelector('.q-dot.active');
+            if (activeDot && activeDot.scrollIntoView) {
+                activeDot.scrollIntoView({ block: 'nearest', inline: 'center' });
+            }
         }
 
         // ============================================================
@@ -1524,7 +1752,7 @@
                         <button class="btn btn-secondary" id="menuBtn">🏠 К выбору теста</button>
                     </div>
                     <div style="text-align:left; margin-top: 1.8rem;">
-                        <div style="font-weight:600; color:#0b2b4a; margin-bottom:0.4rem; font-size:1.05rem;">📋 Разбор ответов</div>
+                        <div style="font-weight:600; color:var(--text); margin-bottom:0.4rem; font-size:1.05rem;">📋 Разбор ответов</div>
                         <div class="review-list">${reviewHtml}</div>
                     </div>
                 </div>
